@@ -24,11 +24,12 @@ void createPlaylist(Playlist &p);
 bool isEmpty(Playlist p);
 adrTrack allocate(track t);
 void showPlaylist(Playlist p);
-void deleteTrack(Playlist &L, string kode, adrTrack p);
-void deleteLast_103052400078(Playlist &L, adrTrack p);
-void addTrack(Playlist &L, adrTrack p);
-adrTrack searchTrack(Playlist L, string kode);
-adrTrack updateDataTrack(Playlist L, string kode);
-
+void deleteTrack(Playlist &p, string kode, adrTrack t);
+void deleteLast_103052400078(Playlist &p, adrTrack t);
+void addTrack(Playlist &p, adrTrack t);
+adrTrack searchTrack(Playlist p, string kode);
+void updateDataTrack(Playlist &p, string kode);
+void addFavorite(adrTrack t);
+void likeTrackvoid(adrTrack t);
 #endif // PLAYLIST_H
 
