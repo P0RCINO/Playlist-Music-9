@@ -31,3 +31,37 @@ void showPlaylist(Playlist p) {
     }
 }
 
+void deleteTrack(Playlist &p, string kode){ // delete track pada playlist sesuai kode
+    if(isEmpty(p)){ // kalau playlist empty
+        cout << "Playlist kosong, tidak ada track untuk di delete" << endl;
+        return;
+    } 
+    
+    adrTrack t = searchTrack(p, kode);
+
+    if (t == nullptr) {
+        cout << "track tidak ditemukan" << endl;
+        return;
+    }
+
+    if (t == p.first && t == p.last){
+        p.first = nullptr;
+        p.last = nullptr;
+    } else if (t == p.first){
+        p.first = t -> next;
+        p.first -> prev = nullptr;
+        t -> next = nullptr;
+    } else if (t == p.last){
+            p.last = t -> prev;
+            p.last -> next = nullptr;
+            t -> prev = nullptr;
+    } else {
+        t -> prev -> next = t -> next;
+        t -> next -> prev = t -> prev;
+        t -> next = nullptr;
+        t -> prev = nullptr;
+    }
+
+        delete t;
+        cout << "Track berhasil dihapus dari playlist" << endl;
+}

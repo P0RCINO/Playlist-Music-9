@@ -24,7 +24,7 @@ void createPlaylist(Playlist &p);
 bool isEmpty(Playlist p);
 adrTrack allocate(track t);
 void showPlaylist(Playlist p);
-void deleteTrack(Playlist &p, string kode, adrTrack t);
+void deleteTrack(Playlist &p, string kode);
 void deleteLast(Playlist &p, adrTrack t);
 void addTrack(Playlist &p, adrTrack t);
 adrTrack searchTrack(Playlist p, string kode);
