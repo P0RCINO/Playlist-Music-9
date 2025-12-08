@@ -87,3 +87,49 @@ void deleteTrack(Playlist &p, string kode){ // delete track pada playlist sesuai
         delete t;
         cout << "Track berhasil dihapus dari playlist" << endl;
 }
+
+adrTrack searchTrack(Playlist p, string kode){
+    adrTrack t = p.first;
+    while (t != nullptr && t -> info.kode != kode){
+        t = t -> next;
+    }
+    return t;
+}
+
+void addFavorite(Playlist &f, Playlist p, string kode){
+    adrTrack t =searchTrack(p, kode);
+    if (t == nullptr){
+        cout << "Track tidak ditemukan" << endl;
+    } else {
+        t -> info.favorit = true;
+        addTrack(f,t);
+        cout << "track sudah dimasukkan playlist favorit" << endl;
+    }
+}
+
+void addTrack(Playlist &p, adrTrack t){
+
+}
+
+void createPlaylist(Playlist &p){
+    p.first = nullptr;
+    p.last = nullptr;
+}
+
+bool isEmpty(Playlist p){
+    return p.first == nullptr && p.last == nullptr;
+}
+
+adrTrack allocate(string nama, string artist, string album, string kode, string genre, int tahun, int durasi){
+    adrTrack t;
+    t = new elemenTrack;
+    t -> info.nama = nama;
+    t -> info.artist = artist;
+    t -> info.album = album;
+    t -> info.kode = kode;
+    t -> info.tahun = tahun;
+    t -> info.durasi = durasi;
+    t -> info.like = 0;
+    t -> info.genre = genre;
+    t -> info.favorit = false;
+}

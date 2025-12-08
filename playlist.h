@@ -22,14 +22,13 @@ struct Playlist{
 
 void createPlaylist(Playlist &p);
 bool isEmpty(Playlist p);
-adrTrack allocate(track t);
+adrTrack allocate(string nama, string artist, string album, string kode, string genre, int tahun, int durasi);
 void showPlaylist(Playlist p);
 void deleteTrack(Playlist &p, string kode);
-void deleteLast(Playlist &p, adrTrack t);
 void addTrack(Playlist &p, adrTrack t);
 adrTrack searchTrack(Playlist p, string kode);
 void updateDataTrack(Playlist &p, string kode);
-void addFavorite(adrTrack t);
-void likeTrackvoid(adrTrack t);
+void addFavorite(Playlist &f, Playlist p, adrTrack t);
+void likeTrack(adrTrack t);
 #endif // PLAYLIST_H
 
