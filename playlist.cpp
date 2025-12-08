@@ -31,6 +31,28 @@ void showPlaylist(Playlist p) {
     }
 }
 
+void addTrack(Playlist &p, adrTrack t) {
+    if (t == NULL) {
+        cout << "Gagal menambah lagu: data tidak valid.\n";
+        return;
+    }
+
+    if (isEmpty(p)) {
+        p.first = t;
+        p.last = t;
+        t->next = NULL;
+        t->prev = NULL;
+    } else {
+        t->prev = p.last;
+        t->next = NULL;
+        p.last->next = t;
+        p.last = t;
+    }
+
+    cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
+}
+
+
 void deleteTrack(Playlist &p, string kode){ // delete track pada playlist sesuai kode
     if(isEmpty(p)){ // kalau playlist empty
         cout << "Playlist kosong, tidak ada track untuk di delete" << endl;
