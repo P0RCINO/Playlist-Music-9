@@ -29,7 +29,7 @@ void deleteLast(Playlist &p, adrTrack t);
 void addTrack(Playlist &p, adrTrack t);
 adrTrack searchTrack(Playlist p, string kode);
 void updateDataTrack(Playlist &p, string kode);
-void addFavorite(adrTrack t);
+void addFavorite(Playlist &f, Playlist p, adrTrack t);
 void likeTrackvoid(adrTrack t);
 #endif // PLAYLIST_H
 

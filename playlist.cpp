@@ -65,3 +65,25 @@ void deleteTrack(Playlist &p, string kode){ // delete track pada playlist sesuai
         delete t;
         cout << "Track berhasil dihapus dari playlist" << endl;
 }
+
+adrTrack searchTrack(Playlist p, string kode){
+    adrTrack t = p.first;
+    while (t != nullptr && t -> info.kode != kode){
+        t = t -> next;
+    }
+    return t;
+}
+
+void addFavorite(Playlist &f, Playlist p, string kode){
+    adrTrack t =searchTrack(p, kode);
+    if (t == nullptr){
+        cout << "Track tidak ditemukan" << endl;
+    } else {
+        addTrack(f,t);
+        cout << "track sudah dimasukkan playlist favorit" << endl;
+    }
+}
+
+void addTrack(Playlist &p, adrTrack t){
+    
+}
