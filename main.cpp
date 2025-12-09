@@ -146,3 +146,30 @@ void userAuthentication() {
         }
     }
 }
+
+int main() {
+    int pilihan;
+    bool running = true;
+    while (running) {
+        displayMainMenu();
+        cout << "Masukkan Pilihan: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                adminAuthentication();
+                break;
+            case 2:
+                userAuthentication();
+                break;
+            case 0:
+                running = false;
+                break;
+            default:
+                cout << "Pilihan tidak valid! Silakan coba lagi.\n";
+                system("pause");
+                break;
+        }
+    }
+    return 0;
+}
