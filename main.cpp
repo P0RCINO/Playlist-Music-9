@@ -149,8 +149,8 @@ void userAuthentication() {
 
 int main() {
     int pilihan;
-    bool running = true;
-    while (running) {
+    bool jalan = true;
+    while (jalan) {
         displayMainMenu();
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
@@ -163,7 +163,7 @@ int main() {
                 userAuthentication();
                 break;
             case 0:
-                running = false;
+                jalan = false;
                 break;
             default:
                 cout << "Pilihan tidak valid! Silakan coba lagi.\n";
