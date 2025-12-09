@@ -127,4 +127,6 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     t -> info.like = 0;
     t -> info.genre = genre;
     t -> info.favorit = false;
+
+    return t;
 }
