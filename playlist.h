@@ -1,13 +1,13 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
-
+#include <string>
 using namespace std;
 
 typedef struct elemenTrack *adrTrack;
 
 struct track{
     string nama, artist, album, genre, kode;
-    int durasi, like, tahun;
+    int durasi, like, tahun, total_played;
     bool favorit;
 };
 
