@@ -214,7 +214,7 @@ void showMostPlayed(Playlist p) {
     }
 
     cout << "\n========================================\n";
-    cout << "   🎵 Lagu yang Paling Sering Diputar 🎵\n";
+    cout << "Lagu yang Paling Sering Diputar\n";
     cout << "========================================\n";
     cout << "Judul Lagu   : " << mostPlayed->info.nama << endl;
     cout << "Artist       : " << mostPlayed->info.artist << endl;
