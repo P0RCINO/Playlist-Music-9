@@ -127,7 +127,7 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     t -> info.like = 0;
     t -> info.genre = genre;
     t -> info.favorit = false;
-    t -> info.total_played = 0;
+    t -> info.totalPlayed = 0;
     t -> next = nullptr;
     t -> prev = nullptr;
 
@@ -168,7 +168,7 @@ void playTrack(adrTrack &p, string kode){
         cout << "Track tidak ditemukan" << endl;
     } else {
         cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
-        t -> info.total_played += 1;
+        t -> info.totalPlayed += 1;
     }
 }
 
@@ -180,7 +180,7 @@ void nextTrack(adrTrack &t){
     } else {
         t = t -> next;
         cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
-        t -> info.total_played += 1;
+        t -> info.totalPlayed += 1;
     }
 }
 
@@ -192,5 +192,37 @@ void previousTrack(adrTrack &t){
     } else {
         t = t -> prev;
         cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
-        t -> info.total_played += 1;
+        t -> info.totalPlayed += 1;
     }
+}
+
+void showMostPlayed(Playlist p) {
+    if (p.first == NULL) {
+        cout << "\nBelum ada lagu di dalam playlist.\n";
+        return;
+    }
+
+    adrTrack current = p.first;
+    adrTrack mostPlayed = current;
+
+    // cari lagu dengan totalPlay terbanyak
+    while (current != NULL) {
+        if (current->info.totalPlayed > mostPlayed->info.totalPlayed) {
+            mostPlayed = current;
+        }
+        current = current->next;
+    }
+
+    cout << "\n========================================\n";
+    cout << "   🎵 Lagu yang Paling Sering Diputar 🎵\n";
+    cout << "========================================\n";
+    cout << "Judul Lagu   : " << mostPlayed->info.nama << endl;
+    cout << "Artist       : " << mostPlayed->info.artist << endl;
+    cout << "Album        : " << mostPlayed->info.album << endl;
+    cout << "Genre        : " << mostPlayed->info.genre << endl;
+    cout << "Tahun Rilis  : " << mostPlayed->info.tahun << endl;
+    cout << "Durasi       : " << mostPlayed->info.durasi << " detik" << endl;
+    cout << "Jumlah Play  : " << mostPlayed->info.totalPlayed << endl;
+    cout << "========================================\n";
+}
+

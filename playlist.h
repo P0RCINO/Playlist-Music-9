@@ -7,7 +7,7 @@ typedef struct elemenTrack *adrTrack;
 
 struct track{
     string nama, artist, album, genre, kode;
-    int durasi, like, tahun, total_played;
+    int durasi, like, tahun, totalPlayed;
     bool favorit;
 };
 
@@ -34,5 +34,7 @@ void playPlaylist(adrTrack &t);
 void playTrack(adrTrack &p, string kode);
 void nextTrack(adrTrack &t);
 void previousTrack(adrTrack &t);
+void showMostPlayed(Playlist p);
+
 #endif // PLAYLIST_H
 
