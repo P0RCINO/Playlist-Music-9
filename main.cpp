@@ -138,7 +138,7 @@ void userAuthentication() {
                 break;
             case 8:
                 cout << "\n>>> Fitur: Tampilkan Most Played <<<\n";
-                showMostplayed();   
+                showMostPlayed();   
                 system("pause");
                 break;
             case 9:
