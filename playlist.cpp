@@ -111,11 +111,11 @@ void createPlaylist(Playlist &p){
     p.last = nullptr;
 }
 
-bool isEmpty(Playlist p){
+bool isEmpty(Playlist p){ //cek playlist kosong
     return p.first == nullptr && p.last == nullptr;
 }
 
-adrTrack allocate(string nama, string artist, string album, string kode, string genre, int tahun, int durasi){
+adrTrack allocate(string nama, string artist, string album, string kode, string genre, int tahun, int durasi){ //taro info ke elemenTrack
     adrTrack t;
     t = new elemenTrack;
     t -> info.nama = nama;
@@ -127,6 +127,80 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     t -> info.like = 0;
     t -> info.genre = genre;
     t -> info.favorit = false;
+    t -> info.total_played = 0;
+    t -> next = nullptr;
+    t -> prev = nullptr;
 
     return t;
 }
+
+void playPlaylist(adrTrack &t) {
+    if (t == nullptr) {
+        cout << "Tidak ada lagu untuk diputar." << endl;
+        return;
+    }
+
+    string pilihan;
+
+    // Simpan pointer awal playlist
+    adrTrack awal = t;
+
+    do {
+        adrTrack current = awal;
+
+        // Putar semua lagu sampai akhir playlist
+        while (current != nullptr) {
+            cout << "Memutar lagu: " << current->info.nama
+                 << " oleh " << current->info.artist << endl;
+
+            // Tambah total played
+            current->info.total_played += 1;
+
+            current = current->next;
+        }
+
+        cout << "\nPlaylist telah selesai." << endl;
+        cout << "Ingin memutar lagi? (yes/no): ";
+        cin >> pilihan;
+        cout << endl;
+
+        // reset ke awal playlist
+        current = awal;
+
+    } while (pilihan == "yes");
+
+    cout << "Kembali ke menu..." << endl;
+}
+
+void playTrack(adrTrack &p, string kode){
+    adrTrack t = searchTrack(p, kode);
+    if (t == nullptr){
+        cout << "Track tidak ditemukan" << endl;
+    } else {
+        cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
+        t -> info.total_played += 1;
+    }
+}
+
+void nextTrack(adrTrack &t){
+    if (t == nullptr){
+        cout << "Tidak ada track yang sedang diputar" << endl;
+    } else if (t -> next == nullptr){
+        cout << "Ini adalah track terakhir, tidak ada track selanjutnya" << endl;
+    } else {
+        t = t -> next;
+        cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
+        t -> info.total_played += 1;
+    }
+}
+
+void previousTrack(adrTrack &t){
+    if (t == nullptr){
+        cout << "Tidak ada track yang sedang diputar" << endl;
+    } else if (t -> prev == nullptr){
+        cout << "Ini adalah track pertama, tidak ada track sebelumnya" << endl;
+    } else {
+        t = t -> prev;
+        cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
+        t -> info.total_played += 1;
+    }

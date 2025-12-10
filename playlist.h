@@ -30,5 +30,9 @@ adrTrack searchTrack(Playlist p, string kode);
 void updateDataTrack(Playlist &p, string kode);
 void addFavorite(Playlist &f, Playlist p, adrTrack t);
 void likeTrack(adrTrack t);
+void playPlaylist(adrTrack &t);
+void playTrack(adrTrack &p, string kode);
+void nextTrack(adrTrack &t);
+void previousTrack(adrTrack &t);
 #endif // PLAYLIST_H
 
