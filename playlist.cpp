@@ -205,7 +205,7 @@ void showMostPlayed(Playlist p) {
     adrTrack current = p.first;
     adrTrack mostPlayed = current;
 
-    // cari lagu dengan totalPlay terbanyak
+    // cari lagu dengan totalPlayed terbanyak
     while (current != NULL) {
         if (current->info.totalPlayed > mostPlayed->info.totalPlayed) {
             mostPlayed = current;
