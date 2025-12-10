@@ -7,4 +7,4 @@ PLAYLIST PROGRESS
 08/12/2025 - Added addFavorite, createPlaylist, allocate, isEmpty
 10/12/2025 - Added playPlaylist, playTrack, nextTrack, prevTrack 
 10/12/2025 - Added showMostPlayed
-10/12/2025 - Added playPlaylist,showMostplayed in main
+10/12/2025 - Added playPlaylist,showMostplayed,like song in main
