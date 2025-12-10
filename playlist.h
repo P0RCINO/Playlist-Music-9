@@ -30,11 +30,15 @@ adrTrack searchTrack(Playlist p, string kode);
 void updateDataTrack(Playlist &p, string kode);
 void addFavorite(Playlist &f, Playlist p, adrTrack t);
 void likeTrack(adrTrack t);
+// Play helpers: overloads provided for calling with/without a current track
 void playPlaylist(adrTrack &t);
-void playTrack(adrTrack &p, string kode);
+void playPlaylist();
+// Play a single track node (calls that accept a track pointer)
+void playTrack(adrTrack p);
 void nextTrack(adrTrack &t);
 void previousTrack(adrTrack &t);
 void showMostPlayed(Playlist p);
+void showMostPlayed();
 
 #endif // PLAYLIST_H
 

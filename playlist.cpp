@@ -148,7 +148,7 @@ void playPlaylist(adrTrack &t) {
         adrTrack current = t;
 
         while (current != nullptr) {
-            playTrack(current);   // ✔ Call playTrack here
+            playTrack(current);
             current = current->next;
         }
 
@@ -161,15 +161,19 @@ void playPlaylist(adrTrack &t) {
     cout << "Kembali ke menu..." << endl;
 }
 
+// No-argument wrapper so main can call playPlaylist()
+void playPlaylist() {
+    cout << "Fitur putar playlist belum dihubungkan dengan data playlist utama." << endl;
+}
 
-void playTrack(adrTrack &p, string kode){
-    adrTrack t = searchTrack(p, kode);
-    if (t == nullptr){
+// Play a single track node
+void playTrack(adrTrack p){
+    if (p == nullptr){
         cout << "Track tidak ditemukan" << endl;
-    } else {
-        cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
-        t -> info.totalPlayed += 1;
+        return;
     }
+    cout << "Memutar lagu: " << p->info.nama << " oleh " << p->info.artist << endl;
+    p->info.totalPlayed += 1;
 }
 
 void nextTrack(adrTrack &t){
@@ -194,6 +198,11 @@ void previousTrack(adrTrack &t){
         cout << "Memutar lagu: " << t -> info.nama << " oleh " << t -> info.artist << endl;
         t -> info.totalPlayed += 1;
     }
+}
+
+// No-argument wrapper for showing most played tracks (main calls without arguments)
+void showMostPlayed() {
+    cout << "Fitur Most Played belum dihubungkan dengan data playlist utama." << endl;
 }
 
 void showMostPlayed(Playlist p) {
