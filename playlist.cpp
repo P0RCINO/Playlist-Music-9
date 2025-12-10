@@ -142,35 +142,25 @@ void playPlaylist(adrTrack &t) {
 
     string pilihan;
 
-    // Simpan pointer awal playlist
-    adrTrack awal = t;
-
     do {
-        adrTrack current = awal;
+        cout << "\n=== Memulai Playlist ===\n";
 
-        // Putar semua lagu sampai akhir playlist
+        adrTrack current = t;
+
         while (current != nullptr) {
-            cout << "Memutar lagu: " << current->info.nama
-                 << " oleh " << current->info.artist << endl;
-
-            // Tambah total played
-            current->info.total_played += 1;
-
+            playTrack(current);   // ✔ Call playTrack here
             current = current->next;
         }
 
         cout << "\nPlaylist telah selesai." << endl;
         cout << "Ingin memutar lagi? (yes/no): ";
         cin >> pilihan;
-        cout << endl;
-
-        // reset ke awal playlist
-        current = awal;
 
     } while (pilihan == "yes");
 
     cout << "Kembali ke menu..." << endl;
 }
+
 
 void playTrack(adrTrack &p, string kode){
     adrTrack t = searchTrack(p, kode);
