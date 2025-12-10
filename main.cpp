@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+
 void displayMainMenu() {
     system("cls");
     cout << "\n";
@@ -35,7 +36,6 @@ void displayAdminMenu() {
     cout << "========================================\n";
 }
 
-
 void displayUserMenu() {
     system("cls");
     cout << "\n";
@@ -50,11 +50,12 @@ void displayUserMenu() {
     cout << "5. Putar Lagu\n";
     cout << "6. Next Lagu\n";
     cout << "7. Previous Lagu\n";
+    cout << "8. Tampilkan Most Played\n";
+    cout << "9. Putar Playlist\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
 }
-
 
 void adminAuthentication() {
     int pilihan;
@@ -97,7 +98,6 @@ void adminAuthentication() {
     }
 }
 
-
 void userAuthentication() {
     int pilihan;
     bool inUserMenu = true;
@@ -134,6 +134,16 @@ void userAuthentication() {
                 break;
             case 7:
                 cout << "\n>>> Fitur: Previous Lagu <<<\n";
+                system("pause");
+                break;
+            case 8:
+                cout << "\n>>> Fitur: Tampilkan Most Played <<<\n";
+                showMostplayed();   
+                system("pause");
+                break;
+            case 9:
+                cout << "\n>>> Fitur: Putar Playlist <<<\n";
+                playPlaylist();     
                 system("pause");
                 break;
             case 0:
