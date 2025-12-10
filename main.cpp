@@ -52,6 +52,7 @@ void displayUserMenu() {
     cout << "7. Previous Lagu\n";
     cout << "8. Tampilkan Most Played\n";
     cout << "9. Putar Playlist\n";
+    cout << "10. Like Lagu\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -143,7 +144,12 @@ void userAuthentication() {
                 break;
             case 9:
                 cout << "\n>>> Fitur: Putar Playlist <<<\n";
-                playPlaylist();     
+                playPlaylist();    
+                system("pause");
+                break;
+            case 10:
+                cout << "\n>>> Fitur: Like Lagu <<<\n";
+                likeSong();         
                 system("pause");
                 break;
             case 0:
