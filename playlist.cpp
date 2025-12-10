@@ -198,31 +198,44 @@ void previousTrack(adrTrack &t){
 
 void showMostPlayed(Playlist p) {
     if (p.first == NULL) {
-        cout << "\nBelum ada lagu di dalam playlist.\n";
+        cout << "\nTidak ada lagu dalam playlist.\n";
         return;
     }
 
-    adrTrack current = p.first;
-    adrTrack mostPlayed = current;
+    adrTrack firstMax = NULL;
+    adrTrack secondMax = NULL;
+    adrTrack thirdMax = NULL;
 
-    // cari lagu dengan totalPlayed terbanyak
-    while (current != NULL) {
-        if (current->info.totalPlayed > mostPlayed->info.totalPlayed) {
-            mostPlayed = current;
+    adrTrack q = p.first;
+    while (q != NULL) {
+        if (firstMax == NULL || q->info.totalPlayed > firstMax->info.totalPlayed) {
+            thirdMax = secondMax;
+            secondMax = firstMax;
+            firstMax = q;
+        } else if (secondMax == NULL || q->info.totalPlayed > secondMax->info.totalPlayed) {
+            thirdMax = secondMax;
+            secondMax = q;
+        } else if (thirdMax == NULL || q->info.totalPlayed > thirdMax->info.totalPlayed) {
+            thirdMax = q;
         }
-        current = current->next;
+        q = q->next;
     }
 
     cout << "\n========================================\n";
-    cout << "Lagu yang Paling Sering Diputar\n";
+    cout << "  3 Lagu yang Paling Sering Diputar\n";
     cout << "========================================\n";
-    cout << "Judul Lagu   : " << mostPlayed->info.nama << endl;
-    cout << "Artist       : " << mostPlayed->info.artist << endl;
-    cout << "Album        : " << mostPlayed->info.album << endl;
-    cout << "Genre        : " << mostPlayed->info.genre << endl;
-    cout << "Tahun Rilis  : " << mostPlayed->info.tahun << endl;
-    cout << "Durasi       : " << mostPlayed->info.durasi << " detik" << endl;
-    cout << "Jumlah Play  : " << mostPlayed->info.totalPlayed << endl;
+
+    int rank = 1;
+    if (firstMax != NULL) {
+        cout << rank++ << ". " << firstMax->info.nama << " (" << firstMax->info.totalPlayed << "x diputar)\n";
+    }
+    if (secondMax != NULL) {
+        cout << rank++ << ". " << secondMax->info.nama << " (" << secondMax->info.totalPlayed << "x diputar)\n";
+    }
+    if (thirdMax != NULL) {
+        cout << rank++ << ". " << thirdMax->info.nama << " (" << thirdMax->info.totalPlayed << "x diputar)\n";
+    }
+
     cout << "========================================\n";
 }
 
