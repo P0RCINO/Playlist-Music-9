@@ -134,7 +134,7 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     return t;
 }
 
-void playPlaylist(adrTrack &t) {
+void playPlaylist(playlist p) {
     if (t == nullptr) {
         cout << "Tidak ada lagu untuk diputar." << endl;
         return;
@@ -161,12 +161,6 @@ void playPlaylist(adrTrack &t) {
     cout << "Kembali ke menu..." << endl;
 }
 
-// No-argument wrapper so main can call playPlaylist()
-void playPlaylist() {
-    cout << "Fitur putar playlist belum dihubungkan dengan data playlist utama." << endl;
-}
-
-// Play a single track node
 void playTrack(adrTrack p){
     if (p == nullptr){
         cout << "Track tidak ditemukan" << endl;
@@ -200,10 +194,6 @@ void previousTrack(adrTrack &t){
     }
 }
 
-// No-argument wrapper for showing most played tracks (main calls without arguments)
-void showMostPlayed() {
-    cout << "Fitur Most Played belum dihubungkan dengan data playlist utama." << endl;
-}
 
 void showMostPlayed(Playlist p) {
     if (p.first == NULL) {
@@ -248,3 +238,12 @@ void showMostPlayed(Playlist p) {
     cout << "========================================\n";
 }
 
+void likeTrack(Playlist &p, string kode){
+    adrTrack t =searchTrack(p, kode);
+    if (t == nullptr){
+        cout << "Track tidak ditemukan" << endl;
+    } else {
+        t -> info.like += 1;
+        cout << "Anda menyukai lagu: " << t -> info.nama << endl;
+    }
+}
