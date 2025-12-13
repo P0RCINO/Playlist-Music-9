@@ -112,32 +112,19 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     return t;
 }
 
-void playPlaylist(Playlist p); {
-    if (t == nullptr) {
-        cout << "Tidak ada lagu untuk diputar." << endl;
+void playPlaylist(Playlist p) {
+    if (isEmpty(p)) {
+        cout << "Playlist kosong.\n";
         return;
     }
 
-    string pilihan;
-
-    do {
-        cout << "\n=== Memulai Playlist ===\n";
-
-        adrTrack current = t;
-
-        while (current != nullptr) {
-            playTrack(current);
-            current = current->next;
-        }
-
-        cout << "\nPlaylist telah selesai." << endl;
-        cout << "Ingin memutar lagi? (yes/no): ";
-        cin >> pilihan;
-
-    } while (pilihan == "yes");
-
-    cout << "Kembali ke menu..." << endl;
+    adrTrack current = p.first;
+    while (current != nullptr) {
+        playTrack(current);
+        current = current->next;
+    }
 }
+
 
 void playTrack(adrTrack p){
     if (p == nullptr){
@@ -174,44 +161,51 @@ void previousTrack(adrTrack &t){
 
 
 void showMostLiked(Playlist p) {
-    if (p.first == NULL) {
-        cout << "\nTidak ada lagu dalam playlist.\n";
+    if (p.first == nullptr) {
+        cout << "Playlist kosong.\n";
         return;
     }
 
-    adrTrack firstMax = NULL;
-    adrTrack secondMax = NULL;
-    adrTrack thirdMax = NULL;
+    adrTrack first = nullptr;
+    adrTrack second = nullptr;
+    adrTrack third = nullptr;
 
-    adrTrack q = p.first;
-    while (q != NULL) {
-        if (firstMax == NULL || q->info.like > firstMax->info.like) {
-            thirdMax = secondMax;
-            secondMax = firstMax;
-            firstMax = q;
-        } else if (secondMax == NULL || q->info.like > secondMax->info.like) {
-            thirdMax = secondMax;
-            secondMax = q;
-        } else if (thirdMax == NULL || q->info.like > thirdMax->info.like) {
-            thirdMax = q;
+    adrTrack cur = p.first;
+    while (cur != nullptr) {
+        if (first == nullptr || cur->info.like > first->info.like) {
+            third = second;
+            second = first;
+            first = cur;
+        } 
+        else if (second == nullptr || cur->info.like > second->info.like) {
+            third = second;
+            second = cur;
+        } 
+        else if (third == nullptr || cur->info.like > third->info.like) {
+            third = cur;
         }
-        q = q->next;
+        cur = cur->next;
     }
 
     cout << "\n========================================\n";
-    cout << "  3 Lagu yang Paling Disukai\n";
+    cout << "   3 Lagu Paling Banyak Disukai ❤️\n";
     cout << "========================================\n";
 
     int rank = 1;
-    if (firstMax != NULL) {
-        cout << rank++ << ". " << firstMax->info.nama << " (" << firstMax->info.totalPlayed << "x diputar)\n";
-    }
-    if (secondMax != NULL) {
-        cout << rank++ << ". " << secondMax->info.nama << " (" << secondMax->info.totalPlayed << "x diputar)\n";
-    }
-    if (thirdMax != NULL) {
-        cout << rank++ << ". " << thirdMax->info.nama << " (" << thirdMax->info.totalPlayed << "x diputar)\n";
-    }
+    if (first && first->info.like > 0)
+        cout << rank++ << ". " << first->info.nama 
+             << " (" << first->info.like << " like)\n";
+
+    if (second && second->info.like > 0)
+        cout << rank++ << ". " << second->info.nama 
+             << " (" << second->info.like << " like)\n";
+
+    if (third && third->info.like > 0)
+        cout << rank++ << ". " << third->info.nama 
+             << " (" << third->info.like << " like)\n";
+
+    if (rank == 1)
+        cout << "Belum ada lagu yang disukai.\n";
 
     cout << "========================================\n";
 }
@@ -340,71 +334,7 @@ void AddLastOrdered(Playlist &p, adrTrack t) {
     cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
 }
 
-void updateLagu(string id, Lagu* newData) {
-    Lagu* lagu = cariLaguById(id);
-    if (lagu != nullptr) {
-        lagu->judul = newData->judul;
-        lagu->penyanyi = newData->penyanyi;
-        lagu->genre = newData->genre;
-        lagu->album = newData->album;
-        lagu->tahun = newData->tahun;
-        lagu->durasi = newData->durasi;
-        cout << "Data lagu berhasil diupdate.\n";
-    } else {
-        cout << "Lagu dengan ID " << id << " tidak ditemukan.\n";
-    }
-}
-
-void showMostLiked(Playlist p) {
-    if (p.first == nullptr) {
-        cout << "Playlist kosong.\n";
-        return;
-    }
-
-    adrTrack first = nullptr;
-    adrTrack second = nullptr;
-    adrTrack third = nullptr;
-
-    adrTrack cur = p.first;
-    while (cur != nullptr) {
-        if (first == nullptr || cur->info.like > first->info.like) {
-            third = second;
-            second = first;
-            first = cur;
-        } 
-        else if (second == nullptr || cur->info.like > second->info.like) {
-            third = second;
-            second = cur;
-        } 
-        else if (third == nullptr || cur->info.like > third->info.like) {
-            third = cur;
-        }
-        cur = cur->next;
-    }
-
-    cout << "\n========================================\n";
-    cout << "   3 Lagu Paling Banyak Disukai ❤️\n";
-    cout << "========================================\n";
-
-    int rank = 1;
-    if (first && first->info.like > 0)
-        cout << rank++ << ". " << first->info.nama 
-             << " (" << first->info.like << " like)\n";
-
-    if (second && second->info.like > 0)
-        cout << rank++ << ". " << second->info.nama 
-             << " (" << second->info.like << " like)\n";
-
-    if (third && third->info.like > 0)
-        cout << rank++ << ". " << third->info.nama 
-             << " (" << third->info.like << " like)\n";
-
-    if (rank == 1)
-        cout << "Belum ada lagu yang disukai.\n";
-
-    cout << "========================================\n";
-}
-
+void updateLagu(Playlist &p, string kode)
 void addTrack(Playlist &p, adrTrack t) {
     if (t == NULL) {
         cout << "Gagal menambah lagu: data tidak valid.\n";
