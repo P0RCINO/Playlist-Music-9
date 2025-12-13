@@ -23,6 +23,7 @@ struct Playlist{
 void createPlaylist(Playlist &p);
 bool isEmpty(Playlist p);
 adrTrack allocate(string nama, string artist, string album, string kode, string genre, int tahun, int durasi);
+void addTrack(Playlist &p, adrTrack t)
 void showPlaylist(Playlist p);
 void deleteTrack(Playlist &p, string kode);
 adrTrack searchTrack(Playlist p, string kode);
