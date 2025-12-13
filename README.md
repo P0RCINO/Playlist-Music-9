@@ -8,3 +8,4 @@ PLAYLIST PROGRESS
 09/12/2025 - Added playlist.exe for run
 12/12/2025 - Added AddTrackOrdered, genreRank
 13/12/2025 - Added showMostLiked,updateLagu
+13/12/2025 - Added supdate main Like Lagu,Lagu Paling Banyak Disukai,Tambah ke Playlist Favorit
