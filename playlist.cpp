@@ -84,28 +84,6 @@ void addFavorite(Playlist &f, Playlist p, string kode){
         cout << "track sudah dimasukkan playlist favorit" << endl;
     }
 }
-
-void addTrack(Playlist &p, adrTrack t) {
-    if (t == NULL) {
-        cout << "Gagal menambah lagu: data tidak valid.\n";
-        return;
-    }
-
-    if (isEmpty(p)) {
-        p.first = t;
-        p.last = t;
-        t->next = NULL;
-        t->prev = NULL;
-    } else {
-        t->prev = p.last;
-        t->next = NULL;
-        p.last->next = t;
-        p.last = t;
-    }
-
-    cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
-}
-
 void createPlaylist(Playlist &p){
     p.first = nullptr;
     p.last = nullptr;
