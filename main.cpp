@@ -58,43 +58,69 @@ void displayUserMenu() {
     cout << "========================================\n";
 }
 
-void adminAuthentication() {
+void adminAuthentication(Playlist &p) {
     int pilihan;
     bool inAdminMenu = true;
-    
+
     while (inAdminMenu) {
         displayAdminMenu();
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
-        
+
         switch (pilihan) {
-            case 1:
-                cout << "\n>>> Fitur: Tambah Lagu Baru <<<\n";
+            case 1: {
+                string nama, artist, album, genre, kode;
+                int tahun, durasi;
+
+                cin.ignore();
+                cout << "Nama Lagu   : "; getline(cin, nama);
+                cout << "Artist      : "; getline(cin, artist);
+                cout << "Album       : "; getline(cin, album);
+                cout << "Genre       : "; getline(cin, genre);
+                cout << "Kode Lagu   : "; getline(cin, kode);
+                cout << "Tahun       : "; cin >> tahun;
+                cout << "Durasi (dtk): "; cin >> durasi;
+
+                adrTrack t = allocate(nama, artist, album, kode, genre, tahun, durasi);
+                addTrack(p, t);
                 system("pause");
                 break;
+            }
+
             case 2:
-                cout << "\n>>> Fitur: Lihat Semua Lagu <<<\n";
+                showPlaylist(p);
                 system("pause");
                 break;
-            case 3:
-                cout << "\n>>> Fitur: Cari Lagu <<<\n";
+
+            case 3: {
+                string kode;
+                cout << "Masukkan kode lagu: ";
+                cin >> kode;
+                adrTrack t = searchTrack(p, kode);
+                if (t)
+                    cout << "Ditemukan: " << t->info.nama << " - " << t->info.artist << endl;
+                else
+                    cout << "Lagu tidak ditemukan\n";
                 system("pause");
                 break;
-            case 4:
-                cout << "\n>>> Fitur: Update Data Lagu <<<\n";
+            }
+
+            case 5: {
+                string kode;
+                cout << "Masukkan kode lagu yang akan dihapus: ";
+                cin >> kode;
+                deleteTrack(p, kode);
                 system("pause");
                 break;
-            case 5:
-                cout << "\n>>> Fitur: Hapus Lagu <<<\n";
-                system("pause");
-                break;
+            }
+
             case 0:
                 inAdminMenu = false;
                 break;
+
             default:
-                cout << "Pilihan tidak valid! Silakan coba lagi.\n";
+                cout << "Pilihan tidak valid!\n";
                 system("pause");
-                break;
         }
     }
 }
