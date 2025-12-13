@@ -104,7 +104,14 @@ void adminAuthentication(Playlist &p) {
                 system("pause");
                 break;
             }
-
+            case 4: {
+                string kode;
+                cout << "Masukkan kode lagu yang akan diupdate: ";
+                cin >> kode;
+                updateLagu(p, kode);
+                system("pause");
+                break;
+                }
             case 5: {
                 string kode;
                 cout << "Masukkan kode lagu yang akan dihapus: ";
