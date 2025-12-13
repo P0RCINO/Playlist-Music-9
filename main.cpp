@@ -53,6 +53,7 @@ void displayUserMenu() {
     cout << "8. Tampilkan Most Played\n";
     cout << "9. Putar Playlist\n";
     cout << "10. Like Lagu\n";
+    cout << "11. Lagu Paling Banyak Disukai\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -185,6 +186,10 @@ void userAuthentication() {
                 likeSong();         
                 system("pause");
                 break;
+            case 11:
+                showMostLiked(p);
+                system("pause");
+                 break;
             case 0:
                 inUserMenu = false;
                 break;
