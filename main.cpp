@@ -133,7 +133,7 @@ void adminAuthentication(Playlist &p) {
     }
 }
 
-void userAuthentication() {
+void userAuthentication(Playlist &p) {
     int pilihan;
     bool inUserMenu = true;
     
@@ -144,13 +144,21 @@ void userAuthentication() {
         
         switch (pilihan) {
             case 1:
-                cout << "\n>>> Fitur: Lihat Semua Lagu <<<\n";
+                showPlaylist(p);
                 system("pause");
                 break;
-            case 2:
-                cout << "\n>>> Fitur: Cari Lagu <<<\n";
+            case 2: {
+                string kode;
+                cout << "Masukkan kode lagu: ";
+                cin >> kode;
+                adrTrack t = searchTrack(p, kode);
+                if (t)
+                    cout << "Ditemukan: " << t->info.nama << " - " << t->info.artist << endl;
+                else
+                    cout << "Lagu tidak ditemukan\n";
                 system("pause");
                 break;
+            }
             case 3:
                 cout << "\n>>> Fitur: Buat Playlist <<<\n";
                 system("pause");
@@ -159,37 +167,44 @@ void userAuthentication() {
                 cout << "\n>>> Fitur: Lihat Playlist Saya <<<\n";
                 system("pause");
                 break;
-            case 5:
-                cout << "\n>>> Fitur: Putar Lagu <<<\n";
-                system("pause");
-                break;
+            case 5: {
+                if (isEmpty(p)) {
+                    cout << "Playlist kosong.\n";
+            } else {
+                currentTrack = p.first;
+                playTrack(currentTrack);
+            }
+            system("pause");
+            break;
+            }
             case 6:
-                cout << "\n>>> Fitur: Next Lagu <<<\n";
+                nextTrack(currentTrack);
                 system("pause");
                 break;
             case 7:
-                cout << "\n>>> Fitur: Previous Lagu <<<\n";
+                previousTrack(currentTrack);
                 system("pause");
                 break;
             case 8:
-                cout << "\n>>> Fitur: Tampilkan Most Played <<<\n";
-                showMostPlayed();   
+                showMostPlayed(p);
                 system("pause");
                 break;
             case 9:
-                cout << "\n>>> Fitur: Putar Playlist <<<\n";
-                playPlaylist();    
+                playPlaylist(p);
                 system("pause");
                 break;
-            case 10:
-                cout << "\n>>> Fitur: Like Lagu <<<\n";
-                likeSong();         
+            case 10: {
+                string kode;
+                cout << "Masukkan kode lagu yang ingin dilike: ";
+                cin >> kode;
+                likeTrack(p, kode);
                 system("pause");
                 break;
+            }
             case 11:
                 showMostLiked(p);
                 system("pause");
-                 break;
+                break;
             case 0:
                 inUserMenu = false;
                 break;
