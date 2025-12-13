@@ -2,7 +2,8 @@
 #include <iostream>
 
 using namespace std;
-
+adrTrack currentTrack = nullptr;
+Playlist playlistFavorit;
 void displayMainMenu() {
     system("cls");
     cout << "\n";
@@ -54,6 +55,7 @@ void displayUserMenu() {
     cout << "9. Putar Playlist\n";
     cout << "10. Like Lagu\n";
     cout << "11. Lagu Paling Banyak Disukai\n";
+    cout << "12. Tambah ke Playlist Favorit\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -83,7 +85,7 @@ void adminAuthentication(Playlist &p) {
                 cout << "Durasi (dtk): "; cin >> durasi;
 
                 adrTrack t = allocate(nama, artist, album, kode, genre, tahun, durasi);
-                addTrack(p, t);
+                addOrdered(p, t);
                 system("pause");
                 break;
             }
@@ -205,6 +207,14 @@ void userAuthentication(Playlist &p) {
                 showMostLiked(p);
                 system("pause");
                 break;
+            case 12: {
+                string kode;
+                cout << "Masukkan kode lagu yang ingin difavoritkan: ";
+                cin >> kode;
+                addFavorite(playlistFavorit, p, kode);
+                system("pause");
+                break;
+        }
             case 0:
                 inUserMenu = false;
                 break;
@@ -219,6 +229,7 @@ void userAuthentication(Playlist &p) {
 int main() {
     int pilihan;
     bool jalan = true;
+    createPlaylist(playlistFavorit);
     while (jalan) {
         displayMainMenu();
         cout << "Masukkan Pilihan: ";
