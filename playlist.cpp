@@ -238,6 +238,26 @@ void showMostPlayed(Playlist p) {
     cout << "========================================\n";
 }
 
+int genreRank(string g) {
+    if (g == "Classical") return 1;
+    if (g == "Folk") return 2;
+    if (g == "Jazz") return 3;
+    if (g == "R&B") return 4;
+    if (g == "Blues") return 5;
+    if (g == "Reggae") return 6;
+    if (g == "Indie") return 7;
+    if (g == "Pop") return 8;
+    if (g == "Latin") return 9;
+    if (g == "Electronic") return 10;
+    if (g == "Hip-Hop") return 11;
+    if (g == "Rock") return 12;
+    if (g == "Country") return 13;
+    if (g == "Metal") return 14;
+
+    return 100; //Genre jika tidak dikenali
+}
+
+
 void likeTrack(Playlist &p, string kode){
     adrTrack t =searchTrack(p, kode);
     if (t == nullptr){
@@ -246,4 +266,55 @@ void likeTrack(Playlist &p, string kode){
         t -> info.like += 1;
         cout << "Anda menyukai lagu: " << t -> info.nama << endl;
     }
+}
+
+void AddLastOrdered(Playlist &p, adrTrack t) {
+    if (t == NULL) {
+        cout << "Gagal menambah lagu: data tidak valid.\n";
+        return;
+    }
+
+    // Jika playlist kosong lagu langsung dimasukkan
+    if (isEmpty(p)) {
+        p.first = t;
+        p.last = t;
+        t->next = NULL;
+        t->prev = NULL;
+
+        cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
+        return;
+    }
+
+    // Cari posisi berdasarkan genre
+    adrTrack curr = p.first;
+    int rNew = genreRank(t->info.genre);
+
+    while (curr != NULL && genreRank(curr->info.genre) <= rNew) {
+        curr = curr->next;
+    }
+
+    // -------- CASE 1: Masuk di akhir --------
+    if (curr == NULL) {
+        t->prev = p.last;
+        t->next = NULL;
+        p.last->next = t;
+        p.last = t;
+    }
+    // -------- CASE 2: Masuk di paling depan --------
+    else if (curr == p.first) {
+        t->next = p.first;
+        t->prev = NULL;
+        p.first->prev = t;
+        p.first = t;
+    }
+    // -------- CASE 3: Masuk di tengah --------
+    else {
+        adrTrack before = curr->prev;
+        t->next = curr;
+        t->prev = before;
+        before->next = t;
+        curr->prev = t;
+    }
+
+    cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
 }
