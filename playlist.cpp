@@ -318,3 +318,18 @@ void AddLastOrdered(Playlist &p, adrTrack t) {
 
     cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
 }
+
+void updateLagu(string id, Lagu* newData) {
+    Lagu* lagu = cariLaguById(id);
+    if (lagu != nullptr) {
+        lagu->judul = newData->judul;
+        lagu->penyanyi = newData->penyanyi;
+        lagu->genre = newData->genre;
+        lagu->album = newData->album;
+        lagu->tahun = newData->tahun;
+        lagu->durasi = newData->durasi;
+        cout << "Data lagu berhasil diupdate.\n";
+    } else {
+        cout << "Lagu dengan ID " << id << " tidak ditemukan.\n";
+    }
+}
