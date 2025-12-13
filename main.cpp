@@ -162,11 +162,11 @@ void userAuthentication(Playlist &p) {
                 break;
             }
             case 3:
-                cout << "\n>>> Fitur: Buat Playlist <<<\n";
-                system("pause");
+                createPlaylist(userPlaylist);
+                cout << "Playlist berhasil dibuat (kosong).\n";
                 break;
             case 4:
-                cout << "\n>>> Fitur: Lihat Playlist Saya <<<\n";
+                showPlaylist(userPlaylist);
                 system("pause");
                 break;
             case 5: {
