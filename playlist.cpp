@@ -195,6 +195,49 @@ void previousTrack(adrTrack &t){
 }
 
 
+void showMostLiked(Playlist p) {
+    if (p.first == NULL) {
+        cout << "\nTidak ada lagu dalam playlist.\n";
+        return;
+    }
+
+    adrTrack firstMax = NULL;
+    adrTrack secondMax = NULL;
+    adrTrack thirdMax = NULL;
+
+    adrTrack q = p.first;
+    while (q != NULL) {
+        if (firstMax == NULL || q->info.like > firstMax->info.like) {
+            thirdMax = secondMax;
+            secondMax = firstMax;
+            firstMax = q;
+        } else if (secondMax == NULL || q->info.like > secondMax->info.like) {
+            thirdMax = secondMax;
+            secondMax = q;
+        } else if (thirdMax == NULL || q->info.like > thirdMax->info.like) {
+            thirdMax = q;
+        }
+        q = q->next;
+    }
+
+    cout << "\n========================================\n";
+    cout << "  3 Lagu yang Paling Disukai\n";
+    cout << "========================================\n";
+
+    int rank = 1;
+    if (firstMax != NULL) {
+        cout << rank++ << ". " << firstMax->info.nama << " (" << firstMax->info.totalPlayed << "x diputar)\n";
+    }
+    if (secondMax != NULL) {
+        cout << rank++ << ". " << secondMax->info.nama << " (" << secondMax->info.totalPlayed << "x diputar)\n";
+    }
+    if (thirdMax != NULL) {
+        cout << rank++ << ". " << thirdMax->info.nama << " (" << thirdMax->info.totalPlayed << "x diputar)\n";
+    }
+
+    cout << "========================================\n";
+}
+
 void showMostPlayed(Playlist p) {
     if (p.first == NULL) {
         cout << "\nTidak ada lagu dalam playlist.\n";
