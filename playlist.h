@@ -36,6 +36,7 @@ void nextTrack(adrTrack &t);
 void previousTrack(adrTrack &t);
 void showMostPlayed(Playlist p);
 void addOrdered(Playlist &p, adrTrack t);
+void updateLagu(Playlist &p, string kode);
 int genreRank(string genre);
 
 #endif // PLAYLIST_H
