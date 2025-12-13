@@ -112,7 +112,7 @@ adrTrack allocate(string nama, string artist, string album, string kode, string 
     return t;
 }
 
-void playPlaylist(playlist p) {
+void playPlaylist(Playlist p); {
     if (t == nullptr) {
         cout << "Tidak ada lagu untuk diputar." << endl;
         return;
