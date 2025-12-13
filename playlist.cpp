@@ -333,3 +333,54 @@ void updateLagu(string id, Lagu* newData) {
         cout << "Lagu dengan ID " << id << " tidak ditemukan.\n";
     }
 }
+
+void showMostLiked(Playlist p) {
+    if (p.first == nullptr) {
+        cout << "Playlist kosong.\n";
+        return;
+    }
+
+    adrTrack first = nullptr;
+    adrTrack second = nullptr;
+    adrTrack third = nullptr;
+
+    adrTrack cur = p.first;
+    while (cur != nullptr) {
+        if (first == nullptr || cur->info.like > first->info.like) {
+            third = second;
+            second = first;
+            first = cur;
+        } 
+        else if (second == nullptr || cur->info.like > second->info.like) {
+            third = second;
+            second = cur;
+        } 
+        else if (third == nullptr || cur->info.like > third->info.like) {
+            third = cur;
+        }
+        cur = cur->next;
+    }
+
+    cout << "\n========================================\n";
+    cout << "   3 Lagu Paling Banyak Disukai ❤️\n";
+    cout << "========================================\n";
+
+    int rank = 1;
+    if (first && first->info.like > 0)
+        cout << rank++ << ". " << first->info.nama 
+             << " (" << first->info.like << " like)\n";
+
+    if (second && second->info.like > 0)
+        cout << rank++ << ". " << second->info.nama 
+             << " (" << second->info.like << " like)\n";
+
+    if (third && third->info.like > 0)
+        cout << rank++ << ". " << third->info.nama 
+             << " (" << third->info.like << " like)\n";
+
+    if (rank == 1)
+        cout << "Belum ada lagu yang disukai.\n";
+
+    cout << "========================================\n";
+}
+
