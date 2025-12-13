@@ -4,6 +4,8 @@
 using namespace std;
 adrTrack currentTrack = nullptr;
 Playlist playlistFavorit;
+Playlist musicLibrary;
+Playlist userPlaylist;
 void displayMainMenu() {
     system("cls");
     cout << "\n";
@@ -55,7 +57,6 @@ void displayUserMenu() {
     cout << "9. Putar Playlist\n";
     cout << "10. Like Lagu\n";
     cout << "11. Lagu Paling Banyak Disukai\n";
-    cout << "12. Tambah ke Playlist Favorit\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -138,110 +139,141 @@ void adminAuthentication(Playlist &p) {
 void userAuthentication(Playlist &p) {
     int pilihan;
     bool inUserMenu = true;
-    
+
     while (inUserMenu) {
         displayUserMenu();
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
-        
+
         switch (pilihan) {
-            case 1:
-                showPlaylist(p);
-                system("pause");
-                break;
-            case 2: {
-                string kode;
-                cout << "Masukkan kode lagu: ";
-                cin >> kode;
-                adrTrack t = searchTrack(p, kode);
-                if (t)
-                    cout << "Ditemukan: " << t->info.nama << " - " << t->info.artist << endl;
-                else
-                    cout << "Lagu tidak ditemukan\n";
-                system("pause");
-                break;
+
+        case 1:
+            showPlaylist(p);
+            system("pause");
+            break;
+
+        case 2: {
+            string kode;
+            cout << "Masukkan kode lagu: ";
+            cin >> kode;
+            adrTrack t = searchTrack(p, kode);
+            if (t)
+                cout << "Ditemukan: " << t->info.nama << " - " << t->info.artist << endl;
+            else
+                cout << "Lagu tidak ditemukan\n";
+            system("pause");
+            break;
+        }
+
+        case 3: {
+            if (isEmpty(userPlaylist)) {
+                cout << "Playlist user masih kosong.\n";
             }
-            case 3:
-                createPlaylist(userPlaylist);
-                cout << "Playlist berhasil dibuat (kosong).\n";
-                break;
-            case 4:
-                showPlaylist(userPlaylist);
-                system("pause");
-                break;
-            case 5: {
-                if (isEmpty(p)) {
-                    cout << "Playlist kosong.\n";
+
+            char pilih;
+            cout << "Tambah lagu ke playlist? (y/n): ";
+            cin >> pilih;
+
+            if (pilih == 'y' || pilih == 'Y') {
+                string kode;
+                cout << "Masukkan kode lagu dari MusicLibrary: ";
+                cin >> kode;
+
+                adrTrack t = searchTrack(p, kode);
+                if (t != nullptr) {
+                    addTrack(userPlaylist, t);
+                    cout << "Lagu berhasil ditambahkan.\n";
+                } else {
+                    cout << "Lagu tidak ditemukan.\n";
+                }
+            }
+
+            cout << "\n=== Playlist Saya ===\n";
+            showPlaylist(userPlaylist);
+
+            system("pause");
+            break;
+        }
+
+        case 4:
+            showPlaylist(userPlaylist);
+            system("pause");
+            break;
+
+        case 5: {
+            if (isEmpty(p)) {
+                cout << "MusicLibrary kosong.\n";
             } else {
                 currentTrack = p.first;
                 playTrack(currentTrack);
             }
             system("pause");
             break;
-            }
-            case 6:
-                nextTrack(currentTrack);
-                system("pause");
-                break;
-            case 7:
-                previousTrack(currentTrack);
-                system("pause");
-                break;
-            case 8:
-                showMostPlayed(p);
-                system("pause");
-                break;
-            case 9:
-                playPlaylist(p);
-                system("pause");
-                break;
-            case 10: {
-                string kode;
-                cout << "Masukkan kode lagu yang ingin dilike: ";
-                cin >> kode;
-                likeTrack(p, kode);
-                system("pause");
-                break;
-            }
-            case 11:
-                showMostLiked(p);
-                system("pause");
-                break;
-            case 12: {
-                string kode;
-                cout << "Masukkan kode lagu yang ingin difavoritkan: ";
-                cin >> kode;
-                addFavorite(playlistFavorit, p, kode);
-                system("pause");
-                break;
         }
-            case 0:
-                inUserMenu = false;
-                break;
-            default:
-                cout << "Pilihan tidak valid! Silakan coba lagi.\n";
-                system("pause");
-                break;
+
+        case 6:
+            nextTrack(currentTrack);
+            system("pause");
+            break;
+
+        case 7:
+            previousTrack(currentTrack);
+            system("pause");
+            break;
+
+        case 8:
+            showMostPlayed(p);
+            system("pause");
+            break;
+
+        case 9:
+            playPlaylist(p);
+            system("pause");
+            break;
+
+        case 10: {
+            string kode;
+            cout << "Masukkan kode lagu yang ingin dilike: ";
+            cin >> kode;
+            likeTrack(p, kode);
+            system("pause");
+            break;
+        }
+
+        case 11:
+            showMostLiked(p);
+            system("pause");
+            break;
+
+        case 0:
+            inUserMenu = false;
+            break;
+
+        default:
+            cout << "Pilihan tidak valid!\n";
+            system("pause");
+            break;
         }
     }
 }
 
+
 int main() {
+    createPlaylist(musicLibrary);
     int pilihan;
     bool jalan = true;
-    createPlaylist(playlistFavorit);
     while (jalan) {
         displayMainMenu();
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
 
         switch (pilihan) {
-            case 1:
-                adminAuthentication();
-                break;
-            case 2:
-                userAuthentication();
-                break;
+        case 1:
+            adminAuthentication(musicLibrary);
+            break;
+        case 2:
+            userAuthentication(musicLibrary);
+            break;
             case 0:
                 jalan = false;
                 break;
