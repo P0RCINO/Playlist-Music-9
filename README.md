@@ -7,3 +7,4 @@ PLAYLIST PROGRESS
 08/12/2025 - Added addFavorite, createPlaylist, allocate, isEmpty
 09/12/2025 - Added playlist.exe for run
 12/12/2025 - Added AddTrackOrdered, genreRank
+13/12/2025 - Added showMostLiked,updateLagu
