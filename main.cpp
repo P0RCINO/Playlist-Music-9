@@ -120,7 +120,7 @@ void adminAuthentication(Playlist &p) {
                 cout << "Tahun       : "; int tahun; cin >> tahun;
                 cout << "Durasi (dtk): "; int durasi; cin >> durasi;
                 adrTrack t = allocate(nama, artist, album, kode, genre, tahun, durasi);
-                updateDataTrack(musicLibrary , t, kode);
+                updateDataTrack(musicLibrary, kode);
                 system("pause");
                 break;
                 }
@@ -249,7 +249,7 @@ void userAuthentication(Playlist &p) {
         }
 
         case 11:
-            ShowMostLiked(p);
+            showMostLiked(p);
             system("pause");
             break;
 

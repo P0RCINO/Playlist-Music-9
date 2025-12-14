@@ -125,7 +125,6 @@ void playPlaylist(Playlist p) {
     }
 }
 
-
 void playTrack(adrTrack p){
     if (p == nullptr){
         cout << "Track tidak ditemukan" << endl;
@@ -158,7 +157,6 @@ void previousTrack(adrTrack &t){
         t -> info.totalPlayed += 1;
     }
 }
-
 
 void showMostLiked(Playlist p) {
     if (p.first == nullptr) {
@@ -334,7 +332,6 @@ void AddLastOrdered(Playlist &p, adrTrack t) {
     cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
 }
 
-void updateLagu(Playlist &p, string kode)
 void addTrack(Playlist &p, adrTrack t) {
     if (t == NULL) {
         cout << "Gagal menambah lagu: data tidak valid.\n";
