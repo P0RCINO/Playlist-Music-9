@@ -352,4 +352,25 @@ void addTrack(Playlist &p, adrTrack t) {
 
     cout << "Lagu \"" << t->info.nama << "\" berhasil ditambahkan ke playlist\n";
 }
+void addOrdered(Playlist &p, adrTrack t) {
+    AddLastOrdered(p, t);
+}
+void updateDataTrack(Playlist &p, string kode) {
+    adrTrack t = searchTrack(p, kode);
+    if (t == nullptr) {
+        cout << "Track tidak ditemukan\n";
+        return;
+    }
+
+    cin.ignore();
+    cout << "Nama Lagu   : "; getline(cin, t->info.nama);
+    cout << "Artist      : "; getline(cin, t->info.artist);
+    cout << "Album       : "; getline(cin, t->info.album);
+    cout << "Genre       : "; getline(cin, t->info.genre);
+    cout << "Tahun       : "; cin >> t->info.tahun;
+    cout << "Durasi (dtk): "; cin >> t->info.durasi;
+
+    cout << "Data lagu berhasil diupdate.\n";
+}
+
 
