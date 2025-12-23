@@ -113,14 +113,6 @@ void adminAuthentication(Playlist &p) {
                 string kode;
                 cout << "Masukkan kode lagu yang akan diupdate: ";
                 cin >> kode;
-                cout << "Masukkan data baru untuk lagu tersebut:\n";
-                cout << "Nama Lagu   : "; string nama; cin >> ws; getline(cin, nama);
-                cout << "Artist      : "; string artist; getline(cin, artist);
-                cout << "Album       : "; string album; getline(cin, album);
-                cout << "Genre       : "; string genre; getline(cin, genre);
-                cout << "Tahun       : "; int tahun; cin >> tahun;
-                cout << "Durasi (dtk): "; int durasi; cin >> durasi;
-                adrTrack t = allocate(nama, artist, album, kode, genre, tahun, durasi);
                 updateDataTrack(musicLibrary, kode);
                 system("pause");
                 break;
@@ -133,7 +125,6 @@ void adminAuthentication(Playlist &p) {
                 system("pause");
                 break;
             }
-
             case 0:
                 inAdminMenu = false;
                 break;
