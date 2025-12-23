@@ -208,7 +208,10 @@ void userAuthentication(Playlist &p) {
             if (isEmpty(p)) {
                 cout << "MusicLibrary kosong.\n";
             } else {
-                currentTrack = p.first;
+                cout << "Masukkan lagu yang ingin diputar: ";
+                string kode;
+                cin >> kode;
+                currentTrack = searchTrack(p, kode);
                 playTrack(currentTrack);
             }
             system("pause");
