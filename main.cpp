@@ -55,9 +55,12 @@ void displayUserMenu() {
     cout << "6. Next Lagu\n";
     cout << "7. Previous Lagu\n";
     cout << "8. Tampilkan Most Played\n";
-    cout << "9. Putar Playlist\n";
-    cout << "10. Like Lagu\n";
-    cout << "11. Lagu Paling Banyak Disukai\n";
+    cout << "9. Add lagu favorit\n";
+    cout << "10. Lihat Playlist favorit\n";
+    cout << "11. Putar Playlist\n";
+    cout << "12. Putar Playlist Favorit\n";
+    cout << "13. Like Lagu\n";
+    cout << "14. Lagu Paling Banyak Disukai\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -227,12 +230,40 @@ void userAuthentication(Playlist &p) {
             system("pause");
             break;
 
-        case 9:
+        case 9:{
+            string kode;
+            cout << "Masukkan kode lagu yang ingin difavoritkan: ";
+            cin >> kode;
+
+            adrTrack t = searchTrack(p, kode);   // search dalam MusicLibrary
+
+            if (t != nullptr) {
+                adrTrack copy = cloneTrack(t);   // IMPORTANT: clone
+                addTrack(playlistFavorit, copy);
+            } else {
+                cout << "Lagu tidak ditemukan di MusicLibrary.\n";
+            }
+
+            system("pause");
+            break;
+        }
+
+        case 10:
+            showPlaylist(playlistFavorit);
+            system("pause");
+            break;
+
+        case 11:
             playPlaylist(p);
             system("pause");
             break;
 
-        case 10: {
+        case 12:
+            playPlaylist(playlistFavorit);
+            system("pause");
+            break;
+
+        case 13: {
             string kode;
             cout << "Masukkan kode lagu yang ingin dilike: ";
             cin >> kode;
@@ -241,7 +272,7 @@ void userAuthentication(Playlist &p) {
             break;
         }
 
-        case 11:
+        case 14:
             showMostLiked(p);
             system("pause");
             break;
@@ -284,7 +315,6 @@ int main() {
     likeTrack(musicLibrary,"0003");
     likeTrack(musicLibrary,"0003");
     likeTrack(musicLibrary,"0003");
-    addFavorite(playlistFavorit,musicLibrary,"0003");
 
     while (jalan) {
         displayMainMenu();
