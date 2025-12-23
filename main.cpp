@@ -56,11 +56,12 @@ void displayUserMenu() {
     cout << "7. Previous Lagu\n";
     cout << "8. Tampilkan Most Played\n";
     cout << "9. Add lagu favorit\n";
-    cout << "10. Lihat Playlist favorit\n";
-    cout << "11. Putar Playlist\n";
-    cout << "12. Putar Playlist Favorit\n";
-    cout << "13. Like Lagu\n";
-    cout << "14. Lagu Paling Banyak Disukai\n";
+    cout << "10. Delete lagu favorit\n";
+    cout << "11. Lihat Playlist favorit\n";
+    cout << "12. Putar Playlist\n";
+    cout << "13. Putar Playlist Favorit\n";
+    cout << "14. Like Lagu\n";
+    cout << "15. Lagu Paling Banyak Disukai\n";
     cout << "0. Kembali ke Menu Utama\n";
     cout << "\n";
     cout << "========================================\n";
@@ -118,28 +119,34 @@ void adminAuthentication(Playlist &p) {
                 cin >> kode;
                 adrTrack t1 = searchTrack(musicLibrary, kode);
 
-                cin.ignore();
-                cout << "Nama Lagu   : "; getline(cin, t1->info.nama);
-                cout << "Artist      : "; getline(cin, t1->info.artist);
-                cout << "Album       : "; getline(cin, t1->info.album);
-                cout << "Genre       : "; getline(cin, t1->info.genre);
-                cout << "Tahun       : "; cin >> t1->info.tahun;
-                cout << "Durasi (dtk): "; cin >> t1->info.durasi;
-                string nama = t1 -> info.nama;
-                string artist = t1 -> info.artist;
-                string album = t1 -> info.album;
-                string genre = t1 -> info.genre;
-                int tahun = t1 -> info.tahun;
-                int durasi = t1 -> info.durasi;
+                if (t1 == nullptr){
+                    cout << "Track tidak ditemukan\n";
+                    system("pause");
+                    break;
+                } else {
+                    cin.ignore();
+                    cout << "Nama Lagu   : "; getline(cin, t1->info.nama);
+                    cout << "Artist      : "; getline(cin, t1->info.artist);
+                    cout << "Album       : "; getline(cin, t1->info.album);
+                    cout << "Genre       : "; getline(cin, t1->info.genre);
+                    cout << "Tahun       : "; cin >> t1->info.tahun;
+                    cout << "Durasi (dtk): "; cin >> t1->info.durasi;
+                    string nama = t1 -> info.nama;
+                    string artist = t1 -> info.artist;
+                    string album = t1 -> info.album;
+                    string genre = t1 -> info.genre;
+                    int tahun = t1 -> info.tahun;
+                    int durasi = t1 -> info.durasi;
 
-                cout << "Status track dalam music library: ";
-                updateDataTrack(p, kode, nama, artist, album, genre, tahun, durasi);
-                cout << "Status track dalam playlist user: ";
-                updateDataTrack(userPlaylist, kode, nama, artist, album, genre, tahun, durasi);
-                cout << "Status track dalam playlist favorit: ";
-                updateDataTrack(playlistFavorit,kode, nama, artist, album, genre, tahun, durasi);
-                system("pause");
-                break;
+                    cout << "Status track dalam music library: ";
+                    updateDataTrack(p, kode, nama, artist, album, genre, tahun, durasi);
+                    cout << "Status track dalam playlist user: ";
+                    updateDataTrack(userPlaylist, kode, nama, artist, album, genre, tahun, durasi);
+                    cout << "Status track dalam playlist favorit: ";
+                    updateDataTrack(playlistFavorit,kode, nama, artist, album, genre, tahun, durasi);
+                    system("pause");
+                    break;
+                }
                 }
             case 5: {
                 string kode;
@@ -268,7 +275,12 @@ void userAuthentication(Playlist &p) {
 
             if (t != nullptr) {
                 adrTrack copy = cloneTrack(t);   // IMPORTANT: clone
-                addTrack(playlistFavorit, copy);
+                addFavorite(playlistFavorit, musicLibrary, kode);
+                adrTrack t1 = searchTrack(userPlaylist, kode);
+                if (t1 != nullptr){
+                    t1 ->info.favorit = true;
+                }
+
             } else {
                 cout << "Lagu tidak ditemukan di MusicLibrary.\n";
             }
@@ -277,22 +289,39 @@ void userAuthentication(Playlist &p) {
             break;
         }
 
-        case 10:
+        case 10:{
+            string kode;
+            cout << "Masukkan kode lagu yang ingin di-unfavorit: ";
+            cin >> kode;
+
+            adrTrack t = searchTrack(p, kode);   // search dalam MusicLibrary
+
+            if (t != nullptr) {
+                removeFavorite(playlistFavorit,userPlaylist, kode);
+            } else {
+                cout << "Lagu tidak ditemukan di MusicLibrary.\n";
+            }
+
+            system("pause");
+            break;
+        }
+
+        case 11:
             showPlaylist(playlistFavorit);
             system("pause");
             break;
 
-        case 11:
+        case 12:
             playPlaylist(p);
             system("pause");
             break;
 
-        case 12:
+        case 13:
             playPlaylist(playlistFavorit);
             system("pause");
             break;
 
-        case 13: {
+        case 14: {
             string kode;
             cout << "Masukkan kode lagu yang ingin dilike: ";
             cin >> kode;
@@ -301,7 +330,7 @@ void userAuthentication(Playlist &p) {
             break;
         }
 
-        case 14:
+        case 15:
             showMostLiked(p);
             system("pause");
             break;

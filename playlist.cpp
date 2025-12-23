@@ -78,6 +78,8 @@ void addFavorite(Playlist &f, Playlist p, string kode){
     adrTrack t =searchTrack(p, kode);
     if (t == nullptr){
         cout << "Track tidak ditemukan" << endl;
+    } else if (t -> info.favorit == true) {
+        cout << "Track sudah di-favoritkan";
     } else {
         t -> info.favorit = true;
         adrTrack copy = cloneTrack(t);
@@ -377,7 +379,7 @@ void updateDataTrack(Playlist &p, string kode, string nama, string artist, strin
 adrTrack cloneTrack(adrTrack src) {
     if (src == nullptr) return nullptr;
 
-    return allocate(
+    adrTrack t = allocate(
         src->info.nama,
         src->info.artist,
         src->info.album,
@@ -386,5 +388,29 @@ adrTrack cloneTrack(adrTrack src) {
         src->info.tahun,
         src->info.durasi
     );
+
+    t->info.like = src->info.like;
+    t->info.favorit = src->info.favorit;
+    t->info.totalPlayed = src->info.totalPlayed;
+
+    return t;
+}
+
+
+void removeFavorite(Playlist &f, Playlist &p, string kode){
+    adrTrack tf = searchTrack(f, kode);
+    if (tf == nullptr){
+        cout << "Track tidak ditemukan di playlist favorit\n";
+        return;
+    }
+
+    deleteTrack(f, kode);
+
+    adrTrack tp = searchTrack(p, kode);
+    if (tp != nullptr) {
+        tp->info.favorit = false;
+    }
+
+    cout << "Track berhasil dihapus dari playlist favorit\n";
 }
 
