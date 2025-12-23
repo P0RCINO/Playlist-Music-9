@@ -190,7 +190,8 @@ void userAuthentication(Playlist &p) {
 
                 adrTrack t = searchTrack(p, kode);
                 if (t != nullptr) {
-                    addTrack(userPlaylist, t);
+                    adrTrack copy = cloneTrack(t);
+                    addTrack(userPlaylist, copy);
                     cout << "Lagu berhasil ditambahkan.\n";
                 } else {
                     cout << "Lagu tidak ditemukan.\n";

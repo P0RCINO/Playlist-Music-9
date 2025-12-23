@@ -35,8 +35,8 @@ void deleteTrack(Playlist &p, string kode){ // delete track pada playlist sesuai
     if(isEmpty(p)){ // kalau playlist empty
         cout << "Playlist kosong, tidak ada track untuk di delete" << endl;
         return;
-    } 
-    
+    }
+
     adrTrack t = searchTrack(p, kode);
 
     if (t == nullptr) {
@@ -80,7 +80,9 @@ void addFavorite(Playlist &f, Playlist p, string kode){
         cout << "Track tidak ditemukan" << endl;
     } else {
         t -> info.favorit = true;
-        addTrack(f,t);
+        adrTrack copy = cloneTrack(t);
+        copy->info.favorit = true;
+        addTrack(f, copy);
         cout << "track sudah dimasukkan playlist favorit" << endl;
     }
 }
@@ -174,11 +176,11 @@ void showMostLiked(Playlist p) {
             third = second;
             second = first;
             first = cur;
-        } 
+        }
         else if (second == nullptr || cur->info.like > second->info.like) {
             third = second;
             second = cur;
-        } 
+        }
         else if (third == nullptr || cur->info.like > third->info.like) {
             third = cur;
         }
@@ -191,15 +193,15 @@ void showMostLiked(Playlist p) {
 
     int rank = 1;
     if (first && first->info.like > 0)
-        cout << rank++ << ". " << first->info.nama 
+        cout << rank++ << ". " << first->info.nama
              << " (" << first->info.like << " like)\n";
 
     if (second && second->info.like > 0)
-        cout << rank++ << ". " << second->info.nama 
+        cout << rank++ << ". " << second->info.nama
              << " (" << second->info.like << " like)\n";
 
     if (third && third->info.like > 0)
-        cout << rank++ << ". " << third->info.nama 
+        cout << rank++ << ". " << third->info.nama
              << " (" << third->info.like << " like)\n";
 
     if (rank == 1)
@@ -373,4 +375,17 @@ void updateDataTrack(Playlist &p, string kode) {
     cout << "Data lagu berhasil diupdate.\n";
 }
 
+adrTrack cloneTrack(adrTrack src) {
+    if (src == nullptr) return nullptr;
+
+    return allocate(
+        src->info.nama,
+        src->info.artist,
+        src->info.album,
+        src->info.kode,
+        src->info.genre,
+        src->info.tahun,
+        src->info.durasi
+    );
+}
 
