@@ -28,6 +28,7 @@ void showPlaylist(Playlist p);
 void deleteTrack(Playlist &p, string kode);
 adrTrack searchTrack(Playlist p, string kode);
 void updateDataTrack(Playlist &p, string kode, string nama, string artist, string album, string genre, int tahun, int durasi);
+void removeFavorite(Playlist &f, Playlist &p, string kode);
 void addFavorite(Playlist &f, Playlist p, string kode);
 void likeTrack(Playlist &p, string kode);
 void playPlaylist(Playlist p);
