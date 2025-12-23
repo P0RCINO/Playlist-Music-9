@@ -6,6 +6,7 @@ adrTrack currentTrack = nullptr;
 Playlist playlistFavorit;
 Playlist musicLibrary;
 Playlist userPlaylist;
+adrTrack t;
 void displayMainMenu() {
     system("cls");
     cout << "\n";
@@ -268,8 +269,31 @@ void userAuthentication(Playlist &p) {
 
 int main() {
     createPlaylist(musicLibrary);
+    createPlaylist(playlistFavorit);
     int pilihan;
     bool jalan = true;
+    t = allocate("Not Allowed","TV Girl","Who Really Cares","0001","Indie",2016,167);
+    addOrdered(musicLibrary,t);
+    likeTrack(musicLibrary,"0001");
+    likeTrack(musicLibrary,"0001");
+    likeTrack(musicLibrary,"0001");
+    likeTrack(musicLibrary,"0001");
+    likeTrack(musicLibrary,"0001");
+    likeTrack(musicLibrary,"0001");
+    addFavorite(playlistFavorit,musicLibrary,"0001"); t = allocate("Not Allowed","TV Girl","Who Really Cares","0001","Indie",2016,167);
+    t = allocate("Smells like Teen Spirit","Nirvana","Nevermind","0002","Rock",1991,301);
+    addOrdered(musicLibrary,t);
+    likeTrack(musicLibrary,"0002");
+    likeTrack(musicLibrary,"0002");
+    likeTrack(musicLibrary,"0002");
+    t = allocate("Deep in it","berlioz","Deep in it","0003","Jazz",2023,154);
+    addOrdered(musicLibrary,t);
+    likeTrack(musicLibrary,"0003");
+    likeTrack(musicLibrary,"0003");
+    likeTrack(musicLibrary,"0003");
+    likeTrack(musicLibrary,"0003");
+    addFavorite(playlistFavorit,musicLibrary,"0003");
+
     while (jalan) {
         displayMainMenu();
         cout << "Masukkan Pilihan: ";
