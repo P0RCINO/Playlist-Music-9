@@ -116,7 +116,28 @@ void adminAuthentication(Playlist &p) {
                 string kode;
                 cout << "Masukkan kode lagu yang akan diupdate: ";
                 cin >> kode;
-                updateDataTrack(musicLibrary, kode);
+                adrTrack t1 = searchTrack(musicLibrary, kode);
+
+                cin.ignore();
+                cout << "Nama Lagu   : "; getline(cin, t1->info.nama);
+                cout << "Artist      : "; getline(cin, t1->info.artist);
+                cout << "Album       : "; getline(cin, t1->info.album);
+                cout << "Genre       : "; getline(cin, t1->info.genre);
+                cout << "Tahun       : "; cin >> t1->info.tahun;
+                cout << "Durasi (dtk): "; cin >> t1->info.durasi;
+                string nama = t1 -> info.nama;
+                string artist = t1 -> info.artist;
+                string album = t1 -> info.album;
+                string genre = t1 -> info.genre;
+                int tahun = t1 -> info.tahun;
+                int durasi = t1 -> info.durasi;
+
+                cout << "Status track dalam music library: ";
+                updateDataTrack(p, kode, nama, artist, album, genre, tahun, durasi);
+                cout << "Status track dalam playlist user: ";
+                updateDataTrack(userPlaylist, kode, nama, artist, album, genre, tahun, durasi);
+                cout << "Status track dalam playlist favorit: ";
+                updateDataTrack(playlistFavorit,kode, nama, artist, album, genre, tahun, durasi);
                 system("pause");
                 break;
                 }
@@ -124,7 +145,12 @@ void adminAuthentication(Playlist &p) {
                 string kode;
                 cout << "Masukkan kode lagu yang akan dihapus: ";
                 cin >> kode;
+                cout << "Status track dalam music library: ";
                 deleteTrack(p, kode);
+                cout << "Status track dalam playlist user: ";
+                deleteTrack(userPlaylist, kode);
+                cout << "Status track dalam playlist favorit: ";
+                deleteTrack(playlistFavorit, kode);
                 system("pause");
                 break;
             }
@@ -323,7 +349,7 @@ int main() {
         displayMainMenu();
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
-        
+
         switch (pilihan) {
         case 1:
             adminAuthentication(musicLibrary);

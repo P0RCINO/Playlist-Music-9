@@ -357,20 +357,19 @@ void addTrack(Playlist &p, adrTrack t) {
 void addOrdered(Playlist &p, adrTrack t) {
     AddLastOrdered(p, t);
 }
-void updateDataTrack(Playlist &p, string kode) {
+void updateDataTrack(Playlist &p, string kode, string nama, string artist, string album, string genre, int tahun, int durasi){
     adrTrack t = searchTrack(p, kode);
     if (t == nullptr) {
         cout << "Track tidak ditemukan\n";
         return;
     }
+        t -> info.nama = nama;
+        t -> info.artist = artist;
+        t -> info.album = album;
+        t -> info.genre = genre;
+        t -> info.tahun = tahun;
+        t -> info.durasi = durasi;
 
-    cin.ignore();
-    cout << "Nama Lagu   : "; getline(cin, t->info.nama);
-    cout << "Artist      : "; getline(cin, t->info.artist);
-    cout << "Album       : "; getline(cin, t->info.album);
-    cout << "Genre       : "; getline(cin, t->info.genre);
-    cout << "Tahun       : "; cin >> t->info.tahun;
-    cout << "Durasi (dtk): "; cin >> t->info.durasi;
 
     cout << "Data lagu berhasil diupdate.\n";
 }
